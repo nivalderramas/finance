@@ -1,7 +1,8 @@
 """ Python automation to collect expenses data from whatsapp
 An expense entry will look like:
-    [9:49 AM, 11/4/2023] nivalderramas: 6000 tamal
+    [9:49 AM, 11/4/2023] nivalderramas: 6k tamal
 """
+from datetime import datetime
 
 expensesFileName = "expenses.txt"
 outputFileName = "out.txt"
@@ -14,6 +15,9 @@ for expense in inputFile:
     rawDate = line[0]
     rawDate = rawDate.split(",")
     date = rawDate[1][1:]
+    dateObj = datetime.strptime(date, '%m/%d/%Y')
+    dateObj = dateObj.strftime('%d/%m/%Y')
+    date = str(dateObj)
 
     rawMessage = line[1].split(":")[1][1:]
     rawMessage = rawMessage.split(" ", maxsplit=1)
